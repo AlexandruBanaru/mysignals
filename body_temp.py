@@ -9,7 +9,7 @@ import paho.mqtt.publish as publish
 
 MQTT_server = "mqtt.beia-telemetrie.ro"
 MQTT_port = 1883
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(A__name__)
           
       
 ser = serial.Serial(
@@ -32,11 +32,11 @@ def main():
         for line in z:
             v1 = str(line[0]) + str(line[1]) + str(line[2]) + str(line[3])+str(line[4])
             temperature = float(v1)
-            topic =  'training/raspberrypi/alexandrubanaru'
+            topic='training/raspberrypi/alexandrubanaru'
 
-            data = {"Body temperature":temperature}
+            data = {"bodyTemperature":temperature}
             payload = json.dumps(data)
-            publish.single(topic, qos = 1, hostname = MQTT_server, payload = payload)
+            publish.single(topic, payload=payload, hostname=MQTT_server, port=MQTT_port)
 
             time.sleep(5)
 if __name__ == '__main__':
